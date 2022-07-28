@@ -4,6 +4,38 @@
   box-sizing: border-box;
 }
 
+:root {
+  --fw-reg: 400;
+  --fw-md: 500;
+  --fw-bold: 700;
+}
+
 body {
   font-family: 'Ubuntu', sans-serif;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+}
+
+header h1 {
+  font-size: 18px;
+  font-weight: var(--fw-bold);
+}
+
+header nav {
+  display: flex;
+  gap: 15px;
+}
+
+header nav .icon {
+  font-size: 18px;
 }

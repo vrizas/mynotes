@@ -21,6 +21,11 @@ body {
 button {
   background-color: transparent;
   border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }
 
 header {
@@ -41,7 +46,11 @@ header nav {
 }
 
 header nav .icon {
-  font-size: 18px;
+  font-size: 20px;
+}
+
+header nav .text {
+  display: none;
 }
 
 main {
@@ -111,6 +120,12 @@ main .note-item__action .icon {
 @media screen and (min-width: 1024px) {
   header {
     padding: 20px 60px;
+  }
+
+  header nav .text {
+    display: inline;
+    font-weight: var(--fw-md);
+    font-size: 15px;
   }
 
   main {

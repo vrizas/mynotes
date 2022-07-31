@@ -41,6 +41,27 @@ class AddNoteModalBody extends React.Component {
       
     onSubmitEventHandler(event) {
         event.preventDefault();
+        const titleInput = document.querySelector('#title');
+        const bodyInput = document.querySelector('#body');
+
+        if (!this.state.title && !this.state.body) {
+            titleInput.style.borderColor = 'var(--danger)';
+            bodyInput.style.borderColor = 'var(--danger)';
+            return;
+        }
+
+        if (!this.state.title) {
+            titleInput.style.borderColor = 'var(--danger)';
+            bodyInput.style.borderColor = 'var(--secondary)';
+            return;
+        }
+
+        if (!this.state.body) {
+            titleInput.style.borderColor = 'var(--secondary)';
+            bodyInput.style.borderColor = 'var(--danger)';
+            return;
+        }
+
         this.props.addNoteHandler(this.state);
         this.setState(() => {
             return {
@@ -48,6 +69,10 @@ class AddNoteModalBody extends React.Component {
                 body: '',
             }
         });
+
+        titleInput.style.borderColor = 'var(--secondary)';
+        bodyInput.style.borderColor = 'var(--secondary)';
+        
         this.onHideAddNoteModal();
         window.scrollTo(0, document.body.scrollHeight);
     }

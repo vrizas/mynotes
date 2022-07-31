@@ -13,6 +13,7 @@
   --white: #fff;
   --primary: #F5CA7B;
   --secondary: #4C4E52;
+  --danger: #ff4444;
 }
 
 html {
@@ -36,6 +37,10 @@ button {
 input, textarea {
   padding: 7px 10px;
   font-family: 'Ubuntu', sans-serif;
+  border-color: var(--secondary);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
 }
 
 textarea {

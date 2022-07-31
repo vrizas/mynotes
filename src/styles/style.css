@@ -111,6 +111,12 @@ main .add-note-modal__title {
   font-size: 18px;
 }
 
+main .add-note-modal__limit {
+  text-align: right;
+  font-size: 14px;
+  color: var(--secondary);
+}
+
 main .add-note-modal__form {
   display: flex;
   flex-direction: column;

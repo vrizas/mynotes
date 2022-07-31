@@ -7,6 +7,7 @@ class AddNoteModalBody extends React.Component {
       this.state = {
         title: '',
         body: '',
+        remainingTitleChar: 50,
       }
     
       this.onTitleChangeEventHandler = this.onTitleChangeEventHandler.bind(this);
@@ -15,10 +16,17 @@ class AddNoteModalBody extends React.Component {
     }
 
     onTitleChangeEventHandler(event) {
-        this.setState(() => {
-          return {
-            title: event.target.value,
-          }
+        const title = event.target.value;
+
+        if (title.length > 50) {
+            return;
+        }
+
+        return this.setState(() => {
+            return {
+              title,
+              remainingTitleChar: 50 - title.length,
+            }
         });
     }
       
@@ -80,6 +88,7 @@ class AddNoteModalBody extends React.Component {
     render() {
         return (
             <section className="add-note-modal__body">
+                <p className="add-note-modal__limit">Sisa karakter: <span>{this.state.remainingTitleChar}</span></p>
                 <form className="add-note-modal__form" onSubmit={this.onSubmitEventHandler}>
                     <div className="add-note-modal__form-item">
                         <label htmlFor="title">Judul</label>

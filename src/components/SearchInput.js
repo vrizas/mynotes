@@ -31,7 +31,7 @@ class SearchInput extends React.Component {
                 <form className="search__form" onSubmit={this.onSubmitEventHandler}>
                     <div className="search__form-item">
                         <span className="material-icons icon">search</span>
-                        <input type="text" id="Query" value={this.state.query} onChange={this.onQueryChangeEventHandler} />
+                        <input type="text" id="query" placeholder="Masukkan judul catatan" value={this.state.query} onChange={this.onQueryChangeEventHandler} />
                     </div>
                 </form>
             </section>

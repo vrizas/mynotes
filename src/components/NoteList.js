@@ -12,7 +12,7 @@ function NoteList({ notes, deleteNoteHandler, archiveNoteHandler }) {
           filteredNotes.map(note => (
             <NoteItem key={note.id} {...note} deleteNoteHandler={deleteNoteHandler} archiveNoteHandler={archiveNoteHandler} />
           )) : 
-          <p>Belum ada catatan</p>
+          <p>Tidak ada catatan</p>
         }
       </div>
     </div>

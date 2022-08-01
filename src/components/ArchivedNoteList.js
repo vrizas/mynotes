@@ -13,7 +13,7 @@ function ArchivedNoteList({ notes, deleteNoteHandler, archiveNoteHandler }) {
               filteredNotes.map(note => (
                 <NoteItem key={note.id} {...note} deleteNoteHandler={deleteNoteHandler} archiveNoteHandler={archiveNoteHandler} />
               )) : 
-              <p>Belum ada catatan yang diarsipkan</p>
+              <p>Tidak ada catatan yang diarsipkan</p>
           }
         </div>
     </div>

@@ -251,6 +251,10 @@ main .note-item__action .icon {
   main {
     padding: 10px 60px;
   }
+
+  main .search__form-item input {
+    width: 30%;
+  }
 }
 
 @media screen and (min-width: 1280px) {

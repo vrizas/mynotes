@@ -82,7 +82,8 @@ class AddNoteModalBody extends React.Component {
         bodyInput.style.borderColor = 'var(--secondary)';
         
         this.onHideAddNoteModal();
-        window.scrollTo(0, document.body.scrollHeight);
+        const noteList = document.querySelector('.note-list');
+        window.scrollTo(0, noteList.scrollHeight);
     }
 
     render() {

@@ -88,6 +88,29 @@ main {
   padding: 10px 15px;
 }
 
+main .search {
+  margin-bottom: 20px;
+}
+
+main .search__form-item {
+  position: relative;
+}
+
+main .search__form-item input {
+  width: 100%;
+  padding: 7px 10px 7px 30px;
+}
+
+
+main .search__form-item .icon {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  color: var(--secondary);
+  font-size: 18px;
+}
+
 main .add-note-modal {
   display: none;
   justify-content: center;
@@ -227,6 +250,10 @@ main .note-item__action .icon {
 
   main {
     padding: 10px 60px;
+  }
+
+  main .search__form-item input {
+    width: 30%;
   }
 }
 

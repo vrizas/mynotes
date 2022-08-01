@@ -7,7 +7,7 @@ function NoteItemAction({ id, archived, deleteNoteHandler, archiveNoteHandler })
         <span className="material-icons icon">delete</span>
      </button>
      <button className="note-item__archive-button" onClick={() => archiveNoteHandler(id)}>
-        {(archived) ? <span class="material-icons icon">unarchive</span> : <span className="material-icons icon">archive</span> }
+        {(archived) ? <span className="material-icons icon">unarchive</span> : <span className="material-icons icon">archive</span> }
      </button>
    </section>
  );

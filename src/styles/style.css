@@ -4,6 +4,269 @@
   box-sizing: border-box;
 }
 
+:root {
+  --fw-reg: 400;
+  --fw-md: 500;
+  --fw-bold: 700;
+
+  --black: #000;
+  --white: #fff;
+  --primary: #F5CA7B;
+  --secondary: #4C4E52;
+  --danger: #ff4444;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Ubuntu', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: var(--black);
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+a, button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+input, textarea {
+  padding: 7px 10px;
+  font-family: 'Ubuntu', sans-serif;
+  border-color: var(--secondary);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+label {
+  color: var(--secondary);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+}
+
+header h1 {
+  font-size: 18px;
+  font-weight: var(--fw-bold);
+}
+
+header nav {
+  display: flex;
+  gap: 15px;
+}
+
+header nav .icon {
+  font-size: 20px;
+}
+
+header nav .text {
+  display: none;
+}
+
+main {
+  padding: 10px 15px;
+}
+
+main .search {
+  margin-bottom: 20px;
+}
+
+main .search__form-item {
+  position: relative;
+}
+
+main .search__form-item input {
+  width: 100%;
+  padding: 7px 10px 7px 30px;
+}
+
+
+main .search__form-item .icon {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  color: var(--secondary);
+  font-size: 18px;
+}
+
+main .add-note-modal {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, .5);
+}
+
+main .add-note-modal__content {
+  background-color: var(--white);
+  border-radius: 5px;
+  padding: 15px 20px;
+  transform: scale(0);
+  transition: .3s;
+}
+
+main .add-note-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+main .add-note-modal__title {
+  font-size: 18px;
+}
+
+main .add-note-modal__limit {
+  text-align: right;
+  font-size: 14px;
+  color: var(--secondary);
+}
+
+main .add-note-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+main .add-note-modal__form-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+main .add-note-modal__form-add {
+  background-color: var(--primary);
+  width: fit-content;
+  padding: 7px 20px;
+  border-radius: 3px;
+  font-weight: var(--fw-bold);
+  margin-top: 10px;
+}
+
+main .note-list__content,
+main .archived-note-list__content {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+main .archived-note-list__title {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+main .note-item {
+  background-color: var(--primary);
+  padding: 10px 15px;
+  font-size: 16px;
+}
+
+main .note-item__header {
+  margin-bottom: 7px;
+}
+
+main .note-item__title {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+main .note-item__date {
+  font-size: 14px;
+  font-weight: var(--fw-md);
+  color: var(--secondary);
+}
+
+main .note-item__body {
+  margin-bottom: 15px;
+}
+
+/* main .note-item__body-content {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} */
+
+main .note-item__action {
+  display: flex; 
+  gap: 10px;
+}
+
+main .note-item__action .icon {
+  font-size: 20px;
+}
+
+@media screen and (min-width: 500px) {
+  main .note-list__content,
+  main .archived-note-list__content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 768px) {
+  main .note-list__content,
+  main .archived-note-list__content {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  header {
+    padding: 20px 60px;
+  }
+
+  header nav .text {
+    display: inline;
+    font-size: 15px;
+  }
+
+  main {
+    padding: 10px 60px;
+  }
+
+  main .search__form-item input {
+    width: 30%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  main .note-list__content,
+  main .archived-note-list__content {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (min-width: 1536px) {
+  main .note-list__content,
+  main .archived-note-list__content {
+    grid-template-columns: repeat(5, 1fr);
+  }
 }

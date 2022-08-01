@@ -12,10 +12,10 @@ function onShowAddNoteModal() {
 function NavigationList() {
  return (
     <nav>
-        <button>
+        <a href="#archived-note-list">
             <span className="material-icons icon">inventory</span>
             <span className="text">Arsip</span>
-        </button>
+        </a>
         <button onClick={onShowAddNoteModal}>
             <span className="material-icons icon">add_box</span>
             <span className="text">Tambah Catatan</span>

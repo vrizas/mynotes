@@ -24,10 +24,18 @@ body {
   font-family: 'Ubuntu', sans-serif;
 }
 
+a {
+  text-decoration: none;
+  color: var(--black);
+}
+
 button {
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+
+a, button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -138,10 +146,17 @@ main .add-note-modal__form-add {
   margin-top: 10px;
 }
 
-main .note-list {
+main .note-list__content,
+main .archived-note-list__content {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 15px;
+  margin-bottom: 30px;
+}
+
+main .archived-note-list__title {
+  font-size: 18px;
+  margin-bottom: 15px;
 }
 
 main .note-item {
@@ -187,13 +202,15 @@ main .note-item__action .icon {
 }
 
 @media screen and (min-width: 500px) {
-  main .note-list {
+  main .note-list__content,
+  main .archived-note-list__content {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media screen and (min-width: 768px) {
-  main .note-list {
+  main .note-list__content,
+  main .archived-note-list__content {
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -205,7 +222,6 @@ main .note-item__action .icon {
 
   header nav .text {
     display: inline;
-    font-weight: var(--fw-md);
     font-size: 15px;
   }
 
@@ -215,13 +231,15 @@ main .note-item__action .icon {
 }
 
 @media screen and (min-width: 1280px) {
-  main .note-list {
+  main .note-list__content,
+  main .archived-note-list__content {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media screen and (min-width: 1536px) {
-  main .note-list {
+  main .note-list__content,
+  main .archived-note-list__content {
     grid-template-columns: repeat(5, 1fr);
   }
 }

@@ -3,12 +3,12 @@ import NoteItemAction from './NoteItemAction';
 import NoteItemBody from './NoteItemBody';
 import NoteItemHeader from './NoteItemHeader';
  
-function NoteItem({ id, title, body, createdAt, archived }) {
+function NoteItem({ id, title, body, createdAt, archived, deleteNoteHandler }) {
  return (
    <div className="note-item">
      <NoteItemHeader title={title} createdAt={createdAt} />
      <NoteItemBody body={body} />
-     <NoteItemAction id={id} />
+     <NoteItemAction id={id} deleteNoteHandler={deleteNoteHandler} />
    </div>
  );
 }

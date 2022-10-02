@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import HomePage from '../pages/HomePage';
@@ -12,12 +12,18 @@ function NoteAppWrapper() {
   const location = useLocation();
   const currentPath = location.pathname.split('/')[1];
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const keyword = searchParams.get('keyword');
+
+  const changeSearchParams = (keyword) => {
+    setSearchParams({ keyword });
+  }
 
   return (
     <div>
-      <NoteApp currentPath={currentPath} navigate={navigate} />
+      <NoteApp currentPath={currentPath} navigate={navigate} defaultKeyword={keyword} keywordChange={changeSearchParams} />
     </div>
-  )
+  );
 }
 
 class NoteApp extends React.Component {
@@ -27,6 +33,7 @@ class NoteApp extends React.Component {
     this.state = {
       notes: getInitialData(),
       currentNotes: getInitialData(),
+      keyword: props.defaultKeyword || '',
     }
 
     this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
@@ -72,13 +79,19 @@ class NoteApp extends React.Component {
      });
   }
 
-  onSearchNoteHandler(query) {
-    let notes = this.state.currentNotes.filter(note => note.title.toLowerCase().includes(query.toLowerCase()));
+  onSearchNoteHandler(keyword) {
+    this.setState(() => {
+      return {
+        keyword,
+      }
+    });
 
-    this.setState({ notes });
+    this.props.keywordChange(keyword);
   }
 
   render() {
+    let notes = this.state.currentNotes.filter(note => note.title.toLowerCase().includes(this.state.keyword.toLowerCase()));
+
     return (
       <div id="app">
         <header>
@@ -89,9 +102,9 @@ class NoteApp extends React.Component {
         </header>
         <main>
           <Routes>
-            <Route path="/" element={<HomePage notes={this.state.notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} searchNoteHandler={this.onSearchNoteHandler} />} />
-            <Route path="/note/:id" element={<DetailPage notes={this.state.notes} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} />} />
-            <Route path="/archive" element={<ArchivePage notes={this.state.notes} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} />} />
+            <Route path="/" element={<HomePage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} keyword={this.state.keyword} searchNoteHandler={this.onSearchNoteHandler} />} />
+            <Route path="/note/:id" element={<DetailPage notes={notes} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} />} />
+            <Route path="/archive" element={<ArchivePage notes={notes} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} keyword={this.state.keyword} searchNoteHandler={this.onSearchNoteHandler} />} />
           </Routes>
         </main>
       </div>

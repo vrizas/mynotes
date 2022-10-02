@@ -4,10 +4,10 @@ import AddNoteModal from '../components/AddNoteModal';
 import NoteList from '../components/NoteList';
 import SearchInput from '../components/SearchInput';
 
-function HomePage({ notes, addNoteHandler, deleteNoteHandler, archiveNoteHandler, searchNoteHandler }) {
+function HomePage({ notes, addNoteHandler, deleteNoteHandler, archiveNoteHandler, keyword, searchNoteHandler }) {
  return (
    <section className="home">
-      <SearchInput searchNoteHandler={searchNoteHandler} />
+      <SearchInput keyword={keyword} searchNoteHandler={searchNoteHandler} />
       <AddNoteModal addNoteHandler={addNoteHandler} />
       <NoteList notes={notes} deleteNoteHandler={deleteNoteHandler} archiveNoteHandler={archiveNoteHandler} isArchived={false} />
    </section>
@@ -19,6 +19,7 @@ HomePage.propTypes = {
   addNoteHandler: PropTypes.func.isRequired,
   deleteNoteHandler: PropTypes.func.isRequired,
   archiveNoteHandler: PropTypes.func.isRequired,
+  keyword: PropTypes.string.isRequired,
   searchNoteHandler: PropTypes.func.isRequired,
 }
  

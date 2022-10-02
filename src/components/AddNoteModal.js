@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AddNoteModalBody from './AddNoteModalBody';
 import AddNoteModalHeader from './AddNoteModalHeader';
 
@@ -11,6 +12,10 @@ function AddNoteModal({ addNoteHandler }) {
         </div>
     </div>
  );
+}
+
+AddNoteModal.propTypes = {
+    addNoteHandler: PropTypes.func.isRequired
 }
  
 export default AddNoteModal;

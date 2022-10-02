@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
  
 function NoteItemAction({ id, archived, deleteNoteHandler, archiveNoteHandler }) {
  return (
@@ -11,6 +12,13 @@ function NoteItemAction({ id, archived, deleteNoteHandler, archiveNoteHandler })
      </button>
    </section>
  );
+}
+
+NoteItemAction.propTypes = {
+  id: PropTypes.number.isRequired,
+  archived: PropTypes.bool.isRequired,
+  deleteNoteHandler: PropTypes.func.isRequired,
+  archiveNoteHandler: PropTypes.func.isRequired,
 }
  
 export default NoteItemAction;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class AddNoteModalBody extends React.Component {
     constructor(props) {
@@ -104,6 +105,10 @@ class AddNoteModalBody extends React.Component {
             </section>
          );
     }
+}
+
+AddNoteModalBody.propTypes = {
+    addNoteHandler: PropTypes.func.isRequired
 }
 
 export default AddNoteModalBody;

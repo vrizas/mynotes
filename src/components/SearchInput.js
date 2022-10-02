@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class SearchInput extends React.Component {
     constructor(props) {
@@ -37,6 +38,10 @@ class SearchInput extends React.Component {
             </section>
          );
     }
+}
+
+SearchInput.propTypes = {
+    searchNoteHandler: PropTypes.func.isRequired
 }
 
 export default SearchInput;

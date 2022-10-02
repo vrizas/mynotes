@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import NoteItemAction from './NoteItemAction';
 import NoteItemBody from './NoteItemBody';
@@ -14,6 +15,16 @@ function NoteItem({ id, title, body, createdAt, archived, deleteNoteHandler, arc
       <NoteItemAction id={id} archived={archived} deleteNoteHandler={deleteNoteHandler} archiveNoteHandler={archiveNoteHandler} />
    </div>
  );
+}
+
+NoteItem.propTypes = {
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  archived: PropTypes.bool.isRequired,
+  deleteNoteHandler: PropTypes.func.isRequired,
+  archiveNoteHandler: PropTypes.func.isRequired,
 }
  
 export default NoteItem;

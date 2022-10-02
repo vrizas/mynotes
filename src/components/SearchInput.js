@@ -15,6 +15,7 @@ function SearchInput({ keyword, searchNoteHandler }) {
 }
 
 SearchInput.propTypes = {
+    keyword: PropTypes.string.isRequired,
     searchNoteHandler: PropTypes.func.isRequired
 }
 

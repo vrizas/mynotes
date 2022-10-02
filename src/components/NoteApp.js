@@ -53,9 +53,19 @@ class NoteApp extends React.Component {
             title,
             body,
             archived: false,
-            createdAt: new Date()
+            createdAt: new Date().toISOString()
           }
-        ]
+        ],
+        currentNotes: [
+          ...prevState.currentNotes,
+          {
+            id: +new Date(),
+            title,
+            body,
+            archived: false,
+            createdAt: new Date().toISOString()
+          }
+        ],
       }
     });
   }
@@ -106,10 +116,10 @@ class NoteApp extends React.Component {
         <main>
           <Routes>
             <Route path="/" element={<HomePage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} keyword={this.state.keyword} searchNoteHandler={this.onSearchNoteHandler} />} />
-            <Route path="/note/:id" element={<DetailPage notes={notes} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} />} />
-            <Route path="/archive" element={<ArchivePage notes={notes} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} keyword={this.state.keyword} searchNoteHandler={this.onSearchNoteHandler} />} />
-            <Route path="/404" element={<NotFoundPage />} />
-            <Route path="*" element={<NotFoundPage />} />
+            <Route path="/note/:id" element={<DetailPage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} />} />
+            <Route path="/archive" element={<ArchivePage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} keyword={this.state.keyword} searchNoteHandler={this.onSearchNoteHandler} />} />
+            <Route path="/404" element={<NotFoundPage addNoteHandler={this.onAddNoteHandler} />} />
+            <Route path="*" element={<NotFoundPage addNoteHandler={this.onAddNoteHandler} />} />
           </Routes>
         </main>
       </div>

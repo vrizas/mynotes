@@ -34,7 +34,7 @@ class AddNoteModalBody extends React.Component {
     onBodyChangeEventHandler(event) {
         this.setState(() => {
           return {
-            body: event.target.value,
+            body: event.target.innerHTML,
           }
         });
     }
@@ -81,6 +81,7 @@ class AddNoteModalBody extends React.Component {
 
         titleInput.style.borderColor = 'var(--secondary)';
         bodyInput.style.borderColor = 'var(--secondary)';
+        bodyInput.innerHTML = '';
         
         this.onHideAddNoteModal();
         const noteList = document.querySelector('.note-list');
@@ -98,7 +99,7 @@ class AddNoteModalBody extends React.Component {
                     </div>
                     <div className="add-note-modal__form-item">
                         <label htmlFor="body">Catatan</label>
-                        <textarea cols="30" rows="10" id="body" value={this.state.body} onChange={this.onBodyChangeEventHandler} ></textarea>
+                        <div className="add-note-modal__input__body" id="body" contentEditable onInput={this.onBodyChangeEventHandler}/>
                     </div>
                     <button className="add-note-modal__form-add">Simpan</button>
                 </form>

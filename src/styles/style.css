@@ -160,6 +160,18 @@ main .add-note-modal__form-item {
   gap: 5px;
 }
 
+main .add-note-modal__input__body {
+  width: 350px;
+  height: 200px;
+  border: 1px solid var(--secondary);
+  border-radius: 3px;
+  padding: 7px 10px;
+  font-size: 14px;
+  resize: vertical;
+  word-wrap:break-word;
+  overflow: auto;
+}
+
 main .add-note-modal__form-add {
   background-color: var(--primary);
   width: fit-content;

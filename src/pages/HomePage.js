@@ -1,17 +1,17 @@
 import React from 'react';
-import AddNoteModal from './AddNoteModal';
-import NoteList from './NoteList';
-import SearchInput from './SearchInput';
+import AddNoteModal from '../components/AddNoteModal';
+import NoteList from '../components/NoteList';
+import SearchInput from '../components/SearchInput';
 
-function MainContent({ notes, addNoteHandler, deleteNoteHandler, archiveNoteHandler, searchNoteHandler }) {
+function HomePage({ notes, addNoteHandler, deleteNoteHandler, archiveNoteHandler, searchNoteHandler }) {
  return (
-   <main>
+   <section className="home">
       <SearchInput notes={notes} searchNoteHandler={searchNoteHandler} />
       <AddNoteModal addNoteHandler={addNoteHandler} />
       <NoteList notes={notes} deleteNoteHandler={deleteNoteHandler} archiveNoteHandler={archiveNoteHandler} isArchived={false} />
       <NoteList notes={notes} deleteNoteHandler={deleteNoteHandler} archiveNoteHandler={archiveNoteHandler} isArchived={true} />
-   </main>
+   </section>
  );
 }
  
-export default MainContent;
+export default HomePage;

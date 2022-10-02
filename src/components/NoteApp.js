@@ -1,7 +1,10 @@
 import React from 'react';
-import HeaderBar from './HeaderBar';
-import MainContent from './MainContent';
-import { getInitialData } from '../utils'
+import { Route, Routes } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import HomePage from '../pages/HomePage';
+import DetailPage from '../pages/DetailPage';
+import NavigationList from './NavigationList';
+import { getInitialData } from '../utils';
  
 class NoteApp extends React.Component {
   constructor(props) {
@@ -62,8 +65,18 @@ class NoteApp extends React.Component {
   render() {
     return (
       <div id="app">
-        <HeaderBar />
-        <MainContent notes={this.state.notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} searchNoteHandler={this.onSearchNoteHandler} />
+        <header>
+          <Link to="/">
+            <h1>MyNotes</h1>
+          </Link>
+          <NavigationList />
+        </header>
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage notes={this.state.notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} searchNoteHandler={this.onSearchNoteHandler} />} />
+            <Route path="/note/:id" element={<DetailPage notes={this.state.notes} />} />
+          </Routes>
+        </main>
       </div>
     );
   }

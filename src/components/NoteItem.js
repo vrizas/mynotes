@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import NoteItemAction from './NoteItemAction';
 import NoteItemBody from './NoteItemBody';
 import NoteItemHeader from './NoteItemHeader';
@@ -6,9 +7,11 @@ import NoteItemHeader from './NoteItemHeader';
 function NoteItem({ id, title, body, createdAt, archived, deleteNoteHandler, archiveNoteHandler }) {
  return (
    <div className="note-item">
-     <NoteItemHeader title={title} createdAt={createdAt} />
-     <NoteItemBody body={body} />
-     <NoteItemAction id={id} archived={archived} deleteNoteHandler={deleteNoteHandler} archiveNoteHandler={archiveNoteHandler} />
+      <Link to={`/note/${id}`} className="note-item__link">
+        <NoteItemHeader title={title} createdAt={createdAt} />
+        <NoteItemBody body={body} />
+      </Link>
+      <NoteItemAction id={id} archived={archived} deleteNoteHandler={deleteNoteHandler} archiveNoteHandler={archiveNoteHandler} />
    </div>
  );
 }

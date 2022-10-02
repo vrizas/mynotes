@@ -78,6 +78,8 @@ class NoteApp extends React.Component {
       notes,
       currentNotes: notes
      });
+
+     if (this.props.currentPath === 'note') console.log(this.props.navigate('/'));
   }
 
   onSearchNoteHandler(keyword) {
@@ -118,6 +120,8 @@ class NoteApp extends React.Component {
 NoteApp.propTypes = {
   currentPath: PropTypes.string.isRequired,
   navigate: PropTypes.func.isRequired,
+  defaultKeyword: PropTypes.string,
+  keywordChange: PropTypes.func.isRequired,
 }
  
 export default NoteAppWrapper;

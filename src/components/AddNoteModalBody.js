@@ -1,5 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
+function AddNoteModalBodyWrapper({ addNoteHandler }) {
+    const navigate = useNavigate();
+    
+    return (
+        <AddNoteModalBody addNoteHandler={addNoteHandler} navigate={navigate} />
+    );
+}
 
 class AddNoteModalBody extends React.Component {
     constructor(props) {
@@ -84,8 +93,7 @@ class AddNoteModalBody extends React.Component {
         bodyInput.innerHTML = '';
         
         this.onHideAddNoteModal();
-        const noteList = document.querySelector('.note-list');
-        window.scrollTo(0, noteList.scrollHeight);
+        this.props.navigate('/');
     }
 
     render() {
@@ -108,8 +116,12 @@ class AddNoteModalBody extends React.Component {
     }
 }
 
+AddNoteModalBodyWrapper.propTypes = {
+    addNoteHandler: PropTypes.func.isRequired
+}
+
 AddNoteModalBody.propTypes = {
     addNoteHandler: PropTypes.func.isRequired
 }
 
-export default AddNoteModalBody;
+export default AddNoteModalBodyWrapper;

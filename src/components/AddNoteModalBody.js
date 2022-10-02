@@ -121,7 +121,8 @@ AddNoteModalBodyWrapper.propTypes = {
 }
 
 AddNoteModalBody.propTypes = {
-    addNoteHandler: PropTypes.func.isRequired
+    addNoteHandler: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired
 }
 
 export default AddNoteModalBodyWrapper;

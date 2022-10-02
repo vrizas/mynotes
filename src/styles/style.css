@@ -243,6 +243,28 @@ main .note-item__action .icon {
   font-size: 20px;
 }
 
+main .not-found-page {
+  text-align: center;
+}
+
+main .not-found-page img {
+  width: 100%;
+}
+
+main .not-found-page figure {
+  font-size: 15px;
+}
+
+main .not-found-page a {
+  font-weight: 500;
+  color: var(--secondary);
+}
+
+main .not-found-page .not-found-page__back {
+  color: var(--black);
+  margin-top: 10px;
+}
+
 @media screen and (min-width: 500px) {
   main .note-list__content,
   main .archived-note-list__content {
@@ -281,6 +303,10 @@ main .note-item__action .icon {
 
   main .search__form-item input {
     width: 30%;
+  }
+
+  main .not-found-page img {
+    width: 40%;
   }
 }
 

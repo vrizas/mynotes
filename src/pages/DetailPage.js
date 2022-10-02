@@ -9,6 +9,10 @@ function DetailPage({ notes, deleteNoteHandler, archiveNoteHandler }) {
     const { id } = useParams();
     const note = notes.find(note => note.id === Number(id));
 
+    if (!note) {
+        return window.location.href = "/404";
+    }
+
     return (
         <section className="note-detail">
             <NoteItemHeader title={note.title} createdAt={note.createdAt} />

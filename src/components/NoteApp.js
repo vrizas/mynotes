@@ -7,6 +7,7 @@ import DetailPage from '../pages/DetailPage';
 import NavigationList from './NavigationList';
 import { getInitialData } from '../utils';
 import ArchivePage from '../pages/ArchivePage';
+import NotFoundPage from '../pages/NoteFoundPage';
  
 function NoteAppWrapper() {
   const location = useLocation();
@@ -105,6 +106,8 @@ class NoteApp extends React.Component {
             <Route path="/" element={<HomePage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} keyword={this.state.keyword} searchNoteHandler={this.onSearchNoteHandler} />} />
             <Route path="/note/:id" element={<DetailPage notes={notes} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} />} />
             <Route path="/archive" element={<ArchivePage notes={notes} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} keyword={this.state.keyword} searchNoteHandler={this.onSearchNoteHandler} />} />
+            <Route path="/404" element={<NotFoundPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>
       </div>

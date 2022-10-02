@@ -28,7 +28,7 @@ DetailPage.propTypes = {
     notes: PropTypes.arrayOf(PropTypes.object).isRequired,
     addNoteHandler: PropTypes.func.isRequired,
     deleteNoteHandler: PropTypes.func.isRequired,
-    archiveNoteHandler: PropTypes.func.isRequired,
+    archiveNoteHandler: PropTypes.func.isRequired
 }
  
 export default DetailPage;

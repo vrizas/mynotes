@@ -18,7 +18,7 @@ function NotFoundPage({ addNoteHandler }) {
 }
 
 NotFoundPage.propTypes = {
-    addNoteHandler: PropTypes.func.isRequired,
+    addNoteHandler: PropTypes.func.isRequired
 }
  
 export default NotFoundPage;

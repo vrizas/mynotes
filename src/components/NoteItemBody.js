@@ -11,7 +11,7 @@ function NoteItemBody({ body }) {
 }
 
 NoteItemBody.propTypes = {
-  body: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired
 }
  
 export default NoteItemBody;

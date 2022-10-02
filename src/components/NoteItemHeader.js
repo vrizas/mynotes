@@ -13,7 +13,7 @@ function NoteItemHeader({ title, createdAt }) {
 
 NoteItemHeader.propTypes = {
   title: PropTypes.string.isRequired,
-  createdAt: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired
 }
  
 export default NoteItemHeader;

@@ -131,7 +131,7 @@ NoteApp.propTypes = {
   currentPath: PropTypes.string.isRequired,
   navigate: PropTypes.func.isRequired,
   defaultKeyword: PropTypes.string,
-  keywordChange: PropTypes.func.isRequired,
+  keywordChange: PropTypes.func.isRequired
 }
  
 export default NoteAppWrapper;

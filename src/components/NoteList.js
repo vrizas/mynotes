@@ -43,7 +43,7 @@ NoteList.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.object).isRequired,
   deleteNoteHandler: PropTypes.func.isRequired,
   archiveNoteHandler: PropTypes.func.isRequired,
-  isArchived: PropTypes.bool.isRequired,
+  isArchived: PropTypes.bool.isRequired
 }
  
 export default NoteList;

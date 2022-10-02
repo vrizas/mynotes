@@ -20,7 +20,7 @@ ArchivePage.propTypes = {
     deleteNoteHandler: PropTypes.func.isRequired,
     archiveNoteHandler: PropTypes.func.isRequired,
     keyword: PropTypes.string.isRequired,
-    searchNoteHandler: PropTypes.func.isRequired,
+    searchNoteHandler: PropTypes.func.isRequired
 }
  
 export default ArchivePage;

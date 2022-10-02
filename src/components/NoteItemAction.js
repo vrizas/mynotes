@@ -18,7 +18,7 @@ NoteItemAction.propTypes = {
   id: PropTypes.number.isRequired,
   archived: PropTypes.bool.isRequired,
   deleteNoteHandler: PropTypes.func.isRequired,
-  archiveNoteHandler: PropTypes.func.isRequired,
+  archiveNoteHandler: PropTypes.func.isRequired
 }
  
 export default NoteItemAction;

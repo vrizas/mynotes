@@ -10,7 +10,6 @@ function HomePage({ notes, addNoteHandler, deleteNoteHandler, archiveNoteHandler
       <SearchInput searchNoteHandler={searchNoteHandler} />
       <AddNoteModal addNoteHandler={addNoteHandler} />
       <NoteList notes={notes} deleteNoteHandler={deleteNoteHandler} archiveNoteHandler={archiveNoteHandler} isArchived={false} />
-      <NoteList notes={notes} deleteNoteHandler={deleteNoteHandler} archiveNoteHandler={archiveNoteHandler} isArchived={true} />
    </section>
  );
 }

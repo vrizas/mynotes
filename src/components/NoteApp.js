@@ -1,11 +1,25 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import HomePage from '../pages/HomePage';
 import DetailPage from '../pages/DetailPage';
 import NavigationList from './NavigationList';
 import { getInitialData } from '../utils';
+import ArchivePage from '../pages/ArchivePage';
  
+function NoteAppWrapper() {
+  const location = useLocation();
+  const currentPath = location.pathname.split('/')[1];
+  const navigate = useNavigate();
+
+  return (
+    <div>
+      <NoteApp currentPath={currentPath} navigate={navigate} />
+    </div>
+  )
+}
+
 class NoteApp extends React.Component {
   constructor(props) {
     super(props);
@@ -44,6 +58,8 @@ class NoteApp extends React.Component {
       notes,
       currentNotes: notes
      });
+
+     if (this.props.currentPath === 'note') console.log(this.props.navigate('/'));
   }
 
   onArchiveNoteHandler(id) {
@@ -74,12 +90,18 @@ class NoteApp extends React.Component {
         <main>
           <Routes>
             <Route path="/" element={<HomePage notes={this.state.notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} searchNoteHandler={this.onSearchNoteHandler} />} />
-            <Route path="/note/:id" element={<DetailPage notes={this.state.notes} />} />
+            <Route path="/note/:id" element={<DetailPage notes={this.state.notes} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} />} />
+            <Route path="/archive" element={<ArchivePage notes={this.state.notes} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} />} />
           </Routes>
         </main>
       </div>
     );
   }
 }
+
+NoteApp.propTypes = {
+  currentPath: PropTypes.string.isRequired,
+  navigate: PropTypes.func.isRequired,
+}
  
-export default NoteApp;
+export default NoteAppWrapper;

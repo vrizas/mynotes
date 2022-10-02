@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function onShowAddNoteModal() {
     const addNoteModal = document.querySelector('.add-note-modal');
@@ -12,10 +13,10 @@ function onShowAddNoteModal() {
 function NavigationList() {
  return (
     <nav>
-        <a href="#archived-note-list">
+        <Link to="/archive">
             <span className="material-icons icon">inventory</span>
             <span className="text">Arsip</span>
-        </a>
+        </Link>
         <button onClick={onShowAddNoteModal}>
             <span className="material-icons icon">add_box</span>
             <span className="text">Tambah Catatan</span>

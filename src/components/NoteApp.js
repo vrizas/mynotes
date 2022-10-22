@@ -6,8 +6,12 @@ import HomePage from '../pages/HomePage';
 import DetailPage from '../pages/DetailPage';
 import NavigationList from './NavigationList';
 import { getInitialData } from '../utils';
+import LoginPage from '../pages/LoginPage';
+import RegisterPage from '../pages/RegisterPage';
 import ArchivePage from '../pages/ArchivePage';
 import NotFoundPage from '../pages/NoteFoundPage';
+import { getUserLogged, putAccessToken } from '../utils/api';
+import { getNotes, deleteNote } from '../utils/api';
  
 function NoteAppWrapper() {
   const location = useLocation();
@@ -32,6 +36,8 @@ class NoteApp extends React.Component {
     super(props);
 
     this.state = {
+      authedUser: null,
+      initializing: true,
       notes: getInitialData(),
       currentNotes: getInitialData(),
       keyword: props.defaultKeyword || '',
@@ -41,6 +47,40 @@ class NoteApp extends React.Component {
     this.onDeleteNoteHandler = this.onDeleteNoteHandler.bind(this);
     this.onArchiveNoteHandler = this.onArchiveNoteHandler.bind(this);
     this.onSearchNoteHandler = this.onSearchNoteHandler.bind(this);
+    this.onLoginSuccess = this.onLoginSuccess.bind(this);
+    this.onLogout = this.onLogout.bind(this);
+  }
+
+  async componentDidMount() {
+    const user = await getUserLogged();
+    this.setState(() => {
+      return {
+        authedUser: user.data,
+        initializing: false,
+      };
+    });
+
+    if (this.state.authedUser) {
+      const notes = await getNotes();
+      this.setState(() => {
+        return {
+          notes: notes.data,
+          currentNotes: notes.data,
+        };
+      });
+    }
+  }
+
+  async componentDidUpdate() {
+    if (this.state.authedUser) {
+      const notes = await getNotes();
+      this.setState(() => {
+        return {
+          notes: notes.data,
+          currentNotes: notes.data,
+        };
+      });
+    }
   }
 
   onAddNoteHandler({ title, body }) {
@@ -70,14 +110,16 @@ class NoteApp extends React.Component {
     });
   }
 
-  onDeleteNoteHandler(id) {
-    const notes = this.state.notes.filter(note => note.id !== id);
-    this.setState({ 
-      notes,
-      currentNotes: notes
-     });
-
-     if (this.props.currentPath === 'note') console.log(this.props.navigate('/'));
+  async onDeleteNoteHandler(id) {
+    await deleteNote(id);
+    
+    const notes = await getNotes();
+    this.setState(() => {
+      return {
+        notes: notes.data,
+        currentNotes: notes.data,
+      };
+    });
   }
 
   onArchiveNoteHandler(id) {
@@ -102,7 +144,49 @@ class NoteApp extends React.Component {
     this.props.keywordChange(keyword);
   }
 
+  async onLoginSuccess({ accessToken }) {
+    putAccessToken(accessToken);
+    const { data } = await getUserLogged();
+ 
+    this.setState(() => {
+      return {
+        authedUser: data,
+      };
+    });
+  }
+
+  onLogout() {
+    this.setState(() => {
+      return {
+        authedUser: null,
+      }
+    });
+    putAccessToken('');
+  }
+
   render() {
+    if (this.state.initializing) {
+      return null;
+    }
+
+    if (this.state.authedUser === null) {
+      return (
+        <div id="app">
+          <header>
+            <Link to="/">
+              <h1>MyNotes</h1>
+            </Link>
+          </header>
+          <main>
+            <Routes>
+                <Route path="/*" element={<LoginPage loginSuccess={this.onLoginSuccess} />} />
+                <Route path="/register" element={<RegisterPage />} />
+            </Routes>
+          </main>
+        </div>
+      );
+    }
+
     let notes = this.state.currentNotes.filter(note => note.title.toLowerCase().includes(this.state.keyword.toLowerCase()));
 
     return (

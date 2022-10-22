@@ -88,6 +88,42 @@ main {
   padding: 10px 15px;
 }
 
+main .login-page__card, main .register-page__card {
+  background-color: var(--primary);
+  border-radius: 5px;
+  padding: 10px 15px;
+}
+
+main .login-page__title, main .register-page__title {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+main .login-input__input-wrapper, main .register-input__input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+main .login-input button, main .register-input button {
+  background-color: var(--secondary);
+  color: var(--white);
+  width: fit-content;
+  padding: 7px 20px;
+  border-radius: 3px;
+  font-weight: var(--fw-bold);
+  margin-top: 10px;
+}
+
+main .login-page__register-link, main .register-page__login-link {
+  margin-top: 20px;
+}
+
+main .login-page__register-link a, main .register-page__login-link a {
+  display: inline;
+  color: var(--secondary);
+}
+
 main .search {
   margin-bottom: 20px;
 }
@@ -319,6 +355,18 @@ main .not-found-page .not-found-page__back {
 
   main .not-found-page img {
     width: 40%;
+  }
+
+  main .login-page, main .register-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 61px - 20px);
+  }
+
+  main .login-page__card, main .register-page__card {
+    width: 40%;
+    padding: 30px 35px;
   }
 }
 

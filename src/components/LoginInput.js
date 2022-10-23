@@ -14,7 +14,7 @@ function LoginInput({ login }) {
     
         login({
             email,
-            password,
+            password
         });
     }
 
@@ -30,7 +30,7 @@ function LoginInput({ login }) {
 }
  
 LoginInput.propTypes = {
-  login: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired
 }
  
 export default LoginInput;

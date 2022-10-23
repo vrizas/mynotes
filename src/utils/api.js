@@ -1,7 +1,7 @@
 const BASE_URL = 'https://notes-api.dicoding.dev/v1';
  
 function getAccessToken() {
-  return localStorage.getItem('accessToken')
+  return localStorage.getItem('accessToken');
 }
  
 function putAccessToken(accessToken) {
@@ -24,7 +24,7 @@ async function login({ email, password }) {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email, password })
   });
  
   const responseJson = await response.json();
@@ -43,7 +43,7 @@ async function register({ name, email, password }) {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ name, email, password}),
+    body: JSON.stringify({ name, email, password})
   });
  
   const responseJson = await response.json();
@@ -73,7 +73,7 @@ async function addNote({ title, body }) {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ title, body }),
+    body: JSON.stringify({ title, body })
   });
  
   const responseJson = await response.json();
@@ -124,7 +124,7 @@ async function getNote(id) {
 
 async function archiveNote(id) {
   const response = await fetchWithToken(`${BASE_URL}/notes/${id}/archive`, {
-    method: 'POST',
+    method: 'POST'
   });
  
   const responseJson = await response.json();
@@ -139,7 +139,7 @@ async function archiveNote(id) {
 
 async function unarchiveNote(id) {
   const response = await fetchWithToken(`${BASE_URL}/notes/${id}/unarchive`, {
-    method: 'POST',
+    method: 'POST'
   });
  
   const responseJson = await response.json();
@@ -154,7 +154,7 @@ async function unarchiveNote(id) {
  
 async function deleteNote(id) {
   const response = await fetchWithToken(`${BASE_URL}/notes/${id}`, {
-    method: 'DELETE',
+    method: 'DELETE'
   });
  
   const responseJson = await response.json();

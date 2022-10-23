@@ -29,7 +29,7 @@ function LoginPage({ loginSuccess }) {
 }
  
 LoginPage.propTypes = {
-  loginSuccess: PropTypes.func.isRequired,
+  loginSuccess: PropTypes.func.isRequired
 }
  
 export default LoginPage;

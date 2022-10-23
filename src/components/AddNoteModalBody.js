@@ -19,7 +19,7 @@ class AddNoteModalBody extends React.Component {
       this.state = {
         title: '',
         body: '',
-        remainingTitleChar: 50,
+        remainingTitleChar: 50
       }
     
       this.onTitleChangeEventHandler = this.onTitleChangeEventHandler.bind(this);
@@ -37,7 +37,7 @@ class AddNoteModalBody extends React.Component {
         return this.setState(() => {
             return {
               title,
-              remainingTitleChar: 50 - title.length,
+              remainingTitleChar: 50 - title.length
             }
         });
     }
@@ -45,7 +45,7 @@ class AddNoteModalBody extends React.Component {
     onBodyChangeEventHandler(event) {
         this.setState(() => {
           return {
-            body: event.target.innerHTML,
+            body: event.target.innerHTML
           }
         });
     }
@@ -86,7 +86,7 @@ class AddNoteModalBody extends React.Component {
         this.setState(() => {
             return {
                 title: '',
-                body: '',
+                body: ''
             }
         });
 

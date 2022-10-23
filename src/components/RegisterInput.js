@@ -33,7 +33,7 @@ function RegisterInput({ register }) {
 }
  
 RegisterInput.propTypes = {
-  register: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired
 };
  
 export default RegisterInput;

@@ -119,7 +119,7 @@ class NoteApp extends React.Component {
       this.setState(() => {
         return {
           notes: notes,
-          currentNotes: notes,
+          currentNotes: notes
         };
       });
     }
@@ -132,7 +132,7 @@ class NoteApp extends React.Component {
     this.setState(() => {
       return {
         notes: notes.data,
-        currentNotes: notes.data,
+        currentNotes: notes.data
       };
     });
   }
@@ -144,7 +144,7 @@ class NoteApp extends React.Component {
     this.setState(() => {
       return {
         notes: notes.data,
-        currentNotes: notes.data,
+        currentNotes: notes.data
       };
     });
   }
@@ -156,7 +156,7 @@ class NoteApp extends React.Component {
     this.setState(() => {
       return {
         notes: notes.data,
-        currentNotes: notes.data,
+        currentNotes: notes.data
       };
     });
 
@@ -170,7 +170,7 @@ class NoteApp extends React.Component {
     this.setState(() => {
       return {
         notes: notes.data,
-        currentNotes: notes.data,
+        currentNotes: notes.data
       };
     });
 
@@ -180,7 +180,7 @@ class NoteApp extends React.Component {
   onSearchNoteHandler(keyword) {
     this.setState(() => {
       return {
-        keyword,
+        keyword
       }
     });
 
@@ -193,7 +193,7 @@ class NoteApp extends React.Component {
  
     this.setState(() => {
       return {
-        authedUser: data,
+        authedUser: data
       };
     });
   }
@@ -201,7 +201,7 @@ class NoteApp extends React.Component {
   onLogout() {
     this.setState(() => {
       return {
-        authedUser: null,
+        authedUser: null
       }
     });
     putAccessToken('');

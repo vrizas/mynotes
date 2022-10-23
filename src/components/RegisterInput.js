@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { registerPage } from '../utils/content';
+import LocaleContext from '../contexts/LocaleContext';
 
 function RegisterInput({ register }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { locale } = React.useContext(LocaleContext);
 
     function onNameChange(event) {
         setName(() => event.target.value);
@@ -31,11 +34,11 @@ function RegisterInput({ register }) {
     return (
         <form onSubmit={onSubmitHandler} className="register-input">
             <div className="register-input__input-wrapper">
-                <input type="text" placeholder="Nama" value={name} onChange={onNameChange} required />
-                <input type="email" placeholder="Email" value={email} onChange={onEmailChange} required />
-                <input type="password" placeholder="Password" autoComplete="current-password" value={password} onChange={onPasswordChange} required />
+                <input type="text" placeholder={registerPage[locale].namePlaceholder} value={name} onChange={onNameChange} required />
+                <input type="email" placeholder={registerPage[locale].emailPlaceholder} value={email} onChange={onEmailChange} required />
+                <input type="password" placeholder={registerPage[locale].passwordPlaceholder} autoComplete="current-password" value={password} onChange={onPasswordChange} required />
             </div>
-            <button>Register</button>
+            <button>{ registerPage[locale].registerButton }</button>
         </form>
     );
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { addNoteModal } from '../utils/content';
+import { LocaleConsumer } from '../contexts/LocaleContext';
 
 function AddNoteModalBodyWrapper({ addNoteHandler }) {
     const navigate = useNavigate();
@@ -98,20 +100,28 @@ class AddNoteModalBody extends React.Component {
 
     render() {
         return (
-            <section className="add-note-modal__body">
-                <p className="add-note-modal__limit">Sisa karakter: <span>{this.state.remainingTitleChar}</span></p>
-                <form className="add-note-modal__form" onSubmit={this.onSubmitEventHandler}>
-                    <div className="add-note-modal__form-item">
-                        <label htmlFor="title">Judul</label>
-                        <input type="text" id="title" value={this.state.title} onChange={this.onTitleChangeEventHandler} />
-                    </div>
-                    <div className="add-note-modal__form-item">
-                        <label htmlFor="body">Catatan</label>
-                        <div className="add-note-modal__input__body" id="body" contentEditable onInput={this.onBodyChangeEventHandler}/>
-                    </div>
-                    <button className="add-note-modal__form-add">Simpan</button>
-                </form>
-            </section>
+            <LocaleConsumer>
+            {
+                ({ locale, toggleLocale}) => {
+                    return (
+                        <section className="add-note-modal__body">
+                            <p className="add-note-modal__limit">{ addNoteModal[locale].charactersRemaining }: <span>{this.state.remainingTitleChar}</span></p>
+                            <form className="add-note-modal__form" onSubmit={this.onSubmitEventHandler}>
+                                <div className="add-note-modal__form-item">
+                                    <label htmlFor="title">{ addNoteModal[locale].titleLabel }</label>
+                                    <input type="text" id="title" value={this.state.title} onChange={this.onTitleChangeEventHandler} />
+                                </div>
+                                <div className="add-note-modal__form-item">
+                                    <label htmlFor="body">{ addNoteModal[locale].noteLabel }</label>
+                                    <div className="add-note-modal__input__body" id="body" contentEditable onInput={this.onBodyChangeEventHandler}/>
+                                </div>
+                                <button className="add-note-modal__form-add">{ addNoteModal[locale].saveButton }</button>
+                            </form>
+                        </section>
+                    )
+                }
+            }
+            </LocaleConsumer>
          );
     }
 }

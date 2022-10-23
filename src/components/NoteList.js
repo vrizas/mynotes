@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import NoteItem from './NoteItem';
+import { archivePage } from '../utils/content';
+import LocaleContext from '../contexts/LocaleContext';
  
 function NoteList({ notes, deleteNoteHandler, archiveNoteHandler, unarchiveNoteHandler, isArchived }) {
+  const { locale } = React.useContext(LocaleContext);
+
   if (notes.length < 1) {
     return (
       <div className="loading-wrapper">
@@ -23,7 +27,7 @@ function NoteList({ notes, deleteNoteHandler, archiveNoteHandler, unarchiveNoteH
 
     return (
       <div className="archived-note-list" id="archived-note-list">
-          <h2 className="archived-note-list__title">Catatan yang telah diarsipkan</h2>
+          <h2 className="archived-note-list__title">{ archivePage[locale].header }</h2>
           <div className="archived-note-list__content">
             {
               (filteredNotes.length > 0) ? 

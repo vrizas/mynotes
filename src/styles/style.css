@@ -14,6 +14,7 @@
   --primary: #F5CA7B;
   --secondary: #4C4E52;
   --danger: #ff4444;
+  --lightGray: #D3D3D3;
 
   --font-color: var(--black);
   --background-color: var(--white);
@@ -91,6 +92,10 @@ header nav {
 header nav .icon {
   font-size: 20px;
   color: var(--font-color);
+}
+
+header nav .toggle-locale-button .icon {
+  font-size: 15px;
 }
 
 header nav .text {
@@ -311,7 +316,7 @@ main .note-detail .note-item__body-content {
 }
 
 [data-theme='dark'] main .note-detail .note-item__date {
-  color: #D3D3D3;
+  color: var(--lightGray);
 }
 
 main .note-item__action {
@@ -339,6 +344,10 @@ main .not-found-page figure {
 main .not-found-page a {
   font-weight: 500;
   color: var(--secondary);
+}
+
+[data-theme='dark'] main .not-found-page a {
+  color: var(--lightGray);
 }
 
 main .not-found-page .not-found-page__back {

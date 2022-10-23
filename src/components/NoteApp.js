@@ -13,6 +13,8 @@ import ToggleTheme from './ToggleTheme';
 import { ThemeProvider } from '../contexts/ThemeContext';
 import { addNote, archiveNote, getArchivedNotes, getUserLogged, putAccessToken, unarchiveNote } from '../utils/api';
 import { getNotes, deleteNote } from '../utils/api';
+import { LocaleProvider } from '../contexts/LocaleContext';
+import ToggleLocale from './ToggleLocale';
  
 function NoteAppWrapper() {
   const location = useLocation();
@@ -51,6 +53,17 @@ class NoteApp extends React.Component {
           return {
             theme: newTheme
           };
+        });
+      },
+      locale: localStorage.getItem('locale') || 'id',
+      toggleLocale: () => {
+        this.setState((prevState) => {
+          const newLocale = prevState.locale === 'id' ? 'en' : 'id';
+          localStorage.setItem('locale', newLocale);
+
+          return {
+              locale: newLocale
+          }
         });
       }
     }
@@ -201,49 +214,54 @@ class NoteApp extends React.Component {
 
     if (this.state.authedUser === null) {
       return (
-        <ThemeProvider value={{theme: this.state.theme, toggleTheme: this.state.toggleTheme}}>
-          <div id="app">
-            <header>
-              <Link to="/">
-                <h1>MyNotes</h1>
-              </Link>
-              <nav>
-                <ToggleTheme />
-              </nav>
-            </header>
-            <main>
-              <Routes>
-                  <Route path="/*" element={<LoginPage loginSuccess={this.onLoginSuccess} />} />
-                  <Route path="/register" element={<RegisterPage />} />
-              </Routes>
-            </main>
-          </div>
-        </ThemeProvider>
+        <LocaleProvider value={{locale: this.state.locale, toggleLocale: this.state.toggleLocale}}>
+          <ThemeProvider value={{theme: this.state.theme, toggleTheme: this.state.toggleTheme}}>
+            <div id="app">
+              <header>
+                <Link to="/">
+                  <h1>MyNotes</h1>
+                </Link>
+                <nav>
+                  <ToggleTheme />
+                  <ToggleLocale />
+                </nav>
+              </header>
+              <main>
+                <Routes>
+                    <Route path="/*" element={<LoginPage loginSuccess={this.onLoginSuccess} />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                </Routes>
+              </main>
+            </div>
+          </ThemeProvider>
+        </LocaleProvider>
       );
     }
 
     let notes = this.state.currentNotes.filter(note => note.title.toLowerCase().includes(this.state.keyword.toLowerCase()));
 
     return (
-      <ThemeProvider value={{theme: this.state.theme, toggleTheme: this.state.toggleTheme}}>
-        <div id="app">
-          <header>
-            <Link to="/">
-              <h1>MyNotes</h1>
-            </Link>
-            <NavigationList />
-          </header>
-          <main>
-            <Routes>
-              <Route path="/" element={<HomePage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} unarchiveNoteHandler={this.onUnarchiveNoteHandler} keyword={this.state.keyword} searchNoteHandler={this.onSearchNoteHandler} />} />
-              <Route path="/note/:id" element={<DetailPage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} unarchiveNoteHandler={this.onUnarchiveNoteHandler} />} />
-              <Route path="/archive" element={<ArchivePage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} unarchiveNoteHandler={this.onUnarchiveNoteHandler} keyword={this.state.keyword} searchNoteHandler={this.onSearchNoteHandler} />} />
-              <Route path="/404" element={<NotFoundPage addNoteHandler={this.onAddNoteHandler} />} />
-              <Route path="*" element={<NotFoundPage addNoteHandler={this.onAddNoteHandler} />} />
-            </Routes>
-          </main>
-        </div>
-      </ThemeProvider>
+      <LocaleProvider value={{locale: this.state.locale, toggleLocale: this.state.toggleLocale}}>
+        <ThemeProvider value={{theme: this.state.theme, toggleTheme: this.state.toggleTheme}}>
+          <div id="app">
+            <header>
+              <Link to="/">
+                <h1>MyNotes</h1>
+              </Link>
+              <NavigationList />
+            </header>
+            <main>
+              <Routes>
+                <Route path="/" element={<HomePage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} unarchiveNoteHandler={this.onUnarchiveNoteHandler} keyword={this.state.keyword} searchNoteHandler={this.onSearchNoteHandler} />} />
+                <Route path="/note/:id" element={<DetailPage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} unarchiveNoteHandler={this.onUnarchiveNoteHandler} />} />
+                <Route path="/archive" element={<ArchivePage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} unarchiveNoteHandler={this.onUnarchiveNoteHandler} keyword={this.state.keyword} searchNoteHandler={this.onSearchNoteHandler} />} />
+                <Route path="/404" element={<NotFoundPage addNoteHandler={this.onAddNoteHandler} />} />
+                <Route path="*" element={<NotFoundPage addNoteHandler={this.onAddNoteHandler} />} />
+              </Routes>
+            </main>
+          </div>
+        </ThemeProvider>
+      </LocaleProvider>
     );
   }
 }

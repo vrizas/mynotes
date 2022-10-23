@@ -1,20 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { loginPage } from '../utils/content';
 import LocaleContext from '../contexts/LocaleContext';
+import useInput from '../hooks/useInput';
 
 function LoginInput({ login }) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, onEmailChange] = useInput('');
+    const [password, onPasswordChange] = useInput('');
     const { locale } = React.useContext(LocaleContext);
-
-    function onEmailChangeHandler(event) {
-        setEmail(() => event.target.value);
-    }
-    
-    function onPasswordChangeHandler(event) {
-        setPassword(() => event.target.value);
-    }
     
     function onSubmitHandler(event) {
         event.preventDefault();
@@ -28,8 +21,8 @@ function LoginInput({ login }) {
     return (
         <form onSubmit={onSubmitHandler} className="login-input">
             <div className="login-input__input-wrapper">
-                <input type="email" placeholder={loginPage[locale].emailPlaceholder} value={email} onChange={onEmailChangeHandler} required />
-                <input type="password" placeholder={loginPage[locale].passwordPlaceholder} value={password} onChange={onPasswordChangeHandler} required />
+                <input type="email" placeholder={loginPage[locale].emailPlaceholder} value={email} onChange={onEmailChange} required />
+                <input type="password" placeholder={loginPage[locale].passwordPlaceholder} value={password} onChange={onPasswordChange} required />
             </div>
             <button>{ loginPage[locale].loginButton }</button>
         </form>

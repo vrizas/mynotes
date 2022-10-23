@@ -1,25 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { registerPage } from '../utils/content';
 import LocaleContext from '../contexts/LocaleContext';
+import useInput from '../hooks/useInput';
 
 function RegisterInput({ register }) {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [name, onNameChange] = useInput('');
+    const [email, onEmailChange] = useInput('');
+    const [password, onPasswordChange] = useInput('');
     const { locale } = React.useContext(LocaleContext);
-
-    function onNameChange(event) {
-        setName(() => event.target.value);
-    }
-    
-    function onEmailChange(event) {
-        setEmail(() => event.target.value);
-    }
-    
-    function onPasswordChange(event) {
-        setPassword(() => event.target.value);
-    }
     
     function onSubmitHandler(event) {
         event.preventDefault();

@@ -42,11 +42,14 @@ class NoteApp extends React.Component {
       notes: [],
       currentNotes: [],
       keyword: props.defaultKeyword || '',
-      theme: 'light',
+      theme: localStorage.getItem('theme') || 'light',
       toggleTheme: () => {
         this.setState((prevState) => {
+          const newTheme = prevState.theme === 'light' ? 'dark' : 'light';
+          localStorage.setItem('theme', newTheme);
+
           return {
-            theme: prevState.theme === 'light' ? 'dark' : 'light'
+            theme: newTheme
           };
         });
       }
@@ -62,6 +65,8 @@ class NoteApp extends React.Component {
   }
 
   async componentDidMount() {
+    document.documentElement.setAttribute('data-theme', this.state.theme);
+
     const user = await getUserLogged();
     this.setState(() => {
       return {
@@ -87,6 +92,10 @@ class NoteApp extends React.Component {
   }
 
   async componentDidUpdate(prevProps, prevState) {
+    if (prevState.theme !== this.state.theme) {
+      document.documentElement.setAttribute('data-theme', this.state.theme);
+    }
+
     if (this.state.authedUser) {
       const notes = [];
       const unarchiveNotes = await getNotes();
@@ -100,10 +109,6 @@ class NoteApp extends React.Component {
           currentNotes: notes,
         };
       });
-    }
-
-    if (prevState.theme !== this.state.theme) {
-      document.documentElement.setAttribute('data-theme', this.state.theme);
     }
   }
 

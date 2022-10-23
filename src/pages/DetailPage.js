@@ -12,8 +12,8 @@ function DetailPage({ notes, addNoteHandler, deleteNoteHandler, archiveNoteHandl
     if (notes.length < 1) {
         return (
             <div className="loading-wrapper">
-            <div class="loadingio-spinner-cube-upsekeva7c">
-                <div class="ldio-aismiju3buq">
+            <div className="loadingio-spinner-cube-upsekeva7c">
+                <div className="ldio-aismiju3buq">
                 <div></div>
                 <div></div>
                 <div></div>

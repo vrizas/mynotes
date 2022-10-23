@@ -8,8 +8,22 @@ import AddNoteModal from '../components/AddNoteModal';
 
 function DetailPage({ notes, addNoteHandler, deleteNoteHandler, archiveNoteHandler, unarchiveNoteHandler }) {
     const { id } = useParams();
-    
-    if (notes.length < 1) return null;
+
+    if (notes.length < 1) {
+        return (
+            <div className="loading-wrapper">
+            <div class="loadingio-spinner-cube-upsekeva7c">
+                <div class="ldio-aismiju3buq">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                </div>
+            </div>
+            </div>
+        )
+    }
+
     const note = notes.find(note => note.id === id);
 
     if (!note) {

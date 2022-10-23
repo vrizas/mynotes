@@ -3,6 +3,21 @@ import PropTypes from 'prop-types';
 import NoteItem from './NoteItem';
  
 function NoteList({ notes, deleteNoteHandler, archiveNoteHandler, unarchiveNoteHandler, isArchived }) {
+  if (notes.length < 1) {
+    return (
+      <div className="loading-wrapper">
+        <div class="loadingio-spinner-cube-upsekeva7c">
+          <div class="ldio-aismiju3buq">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+  
   if (isArchived) {
     const filteredNotes = notes.filter(note => note.archived);
 

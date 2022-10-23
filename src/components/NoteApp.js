@@ -9,6 +9,8 @@ import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import ArchivePage from '../pages/ArchivePage';
 import NotFoundPage from '../pages/NoteFoundPage';
+import ToggleTheme from './ToggleTheme';
+import { ThemeProvider } from '../contexts/ThemeContext';
 import { addNote, archiveNote, getArchivedNotes, getUserLogged, putAccessToken, unarchiveNote } from '../utils/api';
 import { getNotes, deleteNote } from '../utils/api';
  
@@ -40,6 +42,14 @@ class NoteApp extends React.Component {
       notes: [],
       currentNotes: [],
       keyword: props.defaultKeyword || '',
+      theme: 'light',
+      toggleTheme: () => {
+        this.setState((prevState) => {
+          return {
+            theme: prevState.theme === 'light' ? 'dark' : 'light'
+          };
+        });
+      }
     }
 
     this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
@@ -76,7 +86,7 @@ class NoteApp extends React.Component {
     }
   }
 
-  async componentDidUpdate() {
+  async componentDidUpdate(prevProps, prevState) {
     if (this.state.authedUser) {
       const notes = [];
       const unarchiveNotes = await getNotes();
@@ -90,6 +100,10 @@ class NoteApp extends React.Component {
           currentNotes: notes,
         };
       });
+    }
+
+    if (prevState.theme !== this.state.theme) {
+      document.documentElement.setAttribute('data-theme', this.state.theme);
     }
   }
 
@@ -182,42 +196,49 @@ class NoteApp extends React.Component {
 
     if (this.state.authedUser === null) {
       return (
-        <div id="app">
-          <header>
-            <Link to="/">
-              <h1>MyNotes</h1>
-            </Link>
-          </header>
-          <main>
-            <Routes>
-                <Route path="/*" element={<LoginPage loginSuccess={this.onLoginSuccess} />} />
-                <Route path="/register" element={<RegisterPage />} />
-            </Routes>
-          </main>
-        </div>
+        <ThemeProvider value={{theme: this.state.theme, toggleTheme: this.state.toggleTheme}}>
+          <div id="app">
+            <header>
+              <Link to="/">
+                <h1>MyNotes</h1>
+              </Link>
+              <nav>
+                <ToggleTheme />
+              </nav>
+            </header>
+            <main>
+              <Routes>
+                  <Route path="/*" element={<LoginPage loginSuccess={this.onLoginSuccess} />} />
+                  <Route path="/register" element={<RegisterPage />} />
+              </Routes>
+            </main>
+          </div>
+        </ThemeProvider>
       );
     }
 
     let notes = this.state.currentNotes.filter(note => note.title.toLowerCase().includes(this.state.keyword.toLowerCase()));
 
     return (
-      <div id="app">
-        <header>
-          <Link to="/">
-            <h1>MyNotes</h1>
-          </Link>
-          <NavigationList />
-        </header>
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} unarchiveNoteHandler={this.onUnarchiveNoteHandler} keyword={this.state.keyword} searchNoteHandler={this.onSearchNoteHandler} />} />
-            <Route path="/note/:id" element={<DetailPage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} unarchiveNoteHandler={this.onUnarchiveNoteHandler} />} />
-            <Route path="/archive" element={<ArchivePage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} unarchiveNoteHandler={this.onUnarchiveNoteHandler} keyword={this.state.keyword} searchNoteHandler={this.onSearchNoteHandler} />} />
-            <Route path="/404" element={<NotFoundPage addNoteHandler={this.onAddNoteHandler} />} />
-            <Route path="*" element={<NotFoundPage addNoteHandler={this.onAddNoteHandler} />} />
-          </Routes>
-        </main>
-      </div>
+      <ThemeProvider value={{theme: this.state.theme, toggleTheme: this.state.toggleTheme}}>
+        <div id="app">
+          <header>
+            <Link to="/">
+              <h1>MyNotes</h1>
+            </Link>
+            <NavigationList />
+          </header>
+          <main>
+            <Routes>
+              <Route path="/" element={<HomePage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} unarchiveNoteHandler={this.onUnarchiveNoteHandler} keyword={this.state.keyword} searchNoteHandler={this.onSearchNoteHandler} />} />
+              <Route path="/note/:id" element={<DetailPage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} unarchiveNoteHandler={this.onUnarchiveNoteHandler} />} />
+              <Route path="/archive" element={<ArchivePage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} unarchiveNoteHandler={this.onUnarchiveNoteHandler} keyword={this.state.keyword} searchNoteHandler={this.onSearchNoteHandler} />} />
+              <Route path="/404" element={<NotFoundPage addNoteHandler={this.onAddNoteHandler} />} />
+              <Route path="*" element={<NotFoundPage addNoteHandler={this.onAddNoteHandler} />} />
+            </Routes>
+          </main>
+        </div>
+      </ThemeProvider>
     );
   }
 }

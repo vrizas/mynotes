@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ToggleTheme from './ToggleTheme';
 
 function onShowAddNoteModal() {
     const addNoteModal = document.querySelector('.add-note-modal');
@@ -21,6 +22,7 @@ function NavigationList() {
             <span className="material-icons icon">add_box</span>
             <span className="text">Tambah Catatan</span>
         </button>
+        <ToggleTheme />
     </nav>
  );
 }

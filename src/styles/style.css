@@ -9,11 +9,19 @@
   --fw-md: 500;
   --fw-bold: 700;
 
-  --black: #000;
-  --white: #fff;
+  --black: #191919;
+  --white: #F7F7F7;
   --primary: #F5CA7B;
   --secondary: #4C4E52;
   --danger: #ff4444;
+
+  --font-color: var(--black);
+  --background-color: var(--white);
+}
+
+[data-theme='dark'] {
+  --font-color: var(--white);
+  --background-color: var(--black);
 }
 
 html {
@@ -22,17 +30,20 @@ html {
 
 body {
   font-family: 'Ubuntu', sans-serif;
+  background-color: var(--background-color);
+  color: var(--font-color);
 }
 
 a {
   text-decoration: none;
-  color: var(--black);
+  color: var(--font-color);
 }
 
 button {
   background-color: transparent;
   border: none;
   cursor: pointer;
+  color: var(--font-color);
 }
 
 a, button {
@@ -45,6 +56,7 @@ a, button {
 input, textarea {
   padding: 7px 10px;
   font-family: 'Ubuntu', sans-serif;
+  background-color: var(--white);
   border-color: var(--secondary);
   border-width: 1px;
   border-style: solid;
@@ -78,10 +90,19 @@ header nav {
 
 header nav .icon {
   font-size: 20px;
+  color: var(--font-color);
 }
 
 header nav .text {
   display: none;
+}
+
+header .toggle-theme-button {
+  transition: .5s;
+}
+
+header .toggle-theme-button:hover {
+  transform: rotate(360deg) scale(1.5);
 }
 
 main {
@@ -92,6 +113,7 @@ main .login-page__card, main .register-page__card {
   background-color: var(--primary);
   border-radius: 5px;
   padding: 10px 15px;
+  color: var(--black);
 }
 
 main .login-page__title, main .register-page__title {
@@ -157,6 +179,11 @@ main .add-note-modal {
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, .5);
+  color: var(--black);
+}
+
+main .add-note-modal button {
+  color: var(--black);
 }
 
 main .add-note-modal__content {
@@ -239,6 +266,7 @@ main .note-item {
 
 main .note-item__link {
   display: block;
+  color: var(--black);
 }
 
 main .note-item__header {
@@ -282,6 +310,10 @@ main .note-detail .note-item__body-content {
   text-overflow: initial;
 }
 
+[data-theme='dark'] main .note-detail .note-item__date {
+  color: #D3D3D3;
+}
+
 main .note-item__action {
   display: flex; 
   gap: 10px;
@@ -289,6 +321,7 @@ main .note-item__action {
 
 main .note-item__action .icon {
   font-size: 20px;
+  color: var(--black);
 }
 
 main .not-found-page {
@@ -309,7 +342,7 @@ main .not-found-page a {
 }
 
 main .not-found-page .not-found-page__back {
-  color: var(--black);
+  color: var(--font-color);
   margin-top: 10px;
 }
 

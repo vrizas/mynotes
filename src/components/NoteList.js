@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import NoteItem from './NoteItem';
  
-function NoteList({ notes, deleteNoteHandler, archiveNoteHandler, isArchived }) {
+function NoteList({ notes, deleteNoteHandler, archiveNoteHandler, unarchiveNoteHandler, isArchived }) {
   if (isArchived) {
     const filteredNotes = notes.filter(note => note.archived);
 
@@ -13,7 +13,7 @@ function NoteList({ notes, deleteNoteHandler, archiveNoteHandler, isArchived }) 
             {
               (filteredNotes.length > 0) ? 
                 filteredNotes.map(note => (
-                  <NoteItem key={note.id} {...note} deleteNoteHandler={deleteNoteHandler} archiveNoteHandler={archiveNoteHandler} />
+                  <NoteItem key={note.id} {...note} deleteNoteHandler={deleteNoteHandler} archiveNoteHandler={archiveNoteHandler} unarchiveNoteHandler={unarchiveNoteHandler} />
                 )) : 
                 <p>Tidak ada catatan yang diarsipkan</p>
             }
@@ -29,7 +29,7 @@ function NoteList({ notes, deleteNoteHandler, archiveNoteHandler, isArchived }) 
           {
             (filteredNotes.length > 0) ? 
             filteredNotes.map(note => (
-              <NoteItem key={note.id} {...note} deleteNoteHandler={deleteNoteHandler} archiveNoteHandler={archiveNoteHandler} />
+              <NoteItem key={note.id} {...note} deleteNoteHandler={deleteNoteHandler} archiveNoteHandler={archiveNoteHandler} unarchiveNoteHandler={unarchiveNoteHandler} />
             )) : 
             <p>Tidak ada catatan</p>
           }
@@ -43,6 +43,7 @@ NoteList.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.object).isRequired,
   deleteNoteHandler: PropTypes.func.isRequired,
   archiveNoteHandler: PropTypes.func.isRequired,
+  unarchiveNoteHandler: PropTypes.func.isRequired,
   isArchived: PropTypes.bool.isRequired
 }
  

@@ -6,9 +6,11 @@ import NoteItemHeader from '../components/NoteItemHeader';
 import NoteItemAction from '../components/NoteItemAction';
 import AddNoteModal from '../components/AddNoteModal';
 
-function DetailPage({ notes, addNoteHandler, deleteNoteHandler, archiveNoteHandler }) {
+function DetailPage({ notes, addNoteHandler, deleteNoteHandler, archiveNoteHandler, unarchiveNoteHandler }) {
     const { id } = useParams();
-    const note = notes.find(note => note.id === Number(id));
+    
+    if (notes.length < 1) return null;
+    const note = notes.find(note => note.id === id);
 
     if (!note) {
         return window.location.href = "/404";
@@ -16,9 +18,9 @@ function DetailPage({ notes, addNoteHandler, deleteNoteHandler, archiveNoteHandl
 
     return (
         <section className="note-detail">
-            <NoteItemHeader title={note.title} createdAt={note.createdAt} />
-            <NoteItemBody body={note.body} />
-            <NoteItemAction id={note.id} archived={note.archived} deleteNoteHandler={deleteNoteHandler} archiveNoteHandler={archiveNoteHandler} />
+            <NoteItemHeader title={note?note.title:''} createdAt={note?note.createdAt:''} />
+            <NoteItemBody body={note?note.body:''} />
+            <NoteItemAction id={note?note.id:''} archived={note?note.archived:false} deleteNoteHandler={deleteNoteHandler} archiveNoteHandler={archiveNoteHandler} unarchiveNoteHandler={unarchiveNoteHandler} />
             <AddNoteModal addNoteHandler={addNoteHandler} />
         </section>
     )
@@ -28,7 +30,8 @@ DetailPage.propTypes = {
     notes: PropTypes.arrayOf(PropTypes.object).isRequired,
     addNoteHandler: PropTypes.func.isRequired,
     deleteNoteHandler: PropTypes.func.isRequired,
-    archiveNoteHandler: PropTypes.func.isRequired
+    archiveNoteHandler: PropTypes.func.isRequired,
+    unarchiveNoteHandler: PropTypes.func.isRequired
 }
  
 export default DetailPage;

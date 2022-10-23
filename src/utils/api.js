@@ -121,6 +121,36 @@ async function getNote(id) {
    
     return { error: false, data: responseJson.data };
 }
+
+async function archiveNote(id) {
+  const response = await fetchWithToken(`${BASE_URL}/notes/${id}/archive`, {
+    method: 'POST',
+  });
+ 
+  const responseJson = await response.json();
+ 
+  if (responseJson.status !== 'success') {
+    alert(responseJson.message);
+    return { error: true };
+  }
+ 
+  return { error: false };
+}
+
+async function unarchiveNote(id) {
+  const response = await fetchWithToken(`${BASE_URL}/notes/${id}/unarchive`, {
+    method: 'POST',
+  });
+ 
+  const responseJson = await response.json();
+ 
+  if (responseJson.status !== 'success') {
+    alert(responseJson.message);
+    return { error: true };
+  }
+ 
+  return { error: false };
+}
  
 async function deleteNote(id) {
   const response = await fetchWithToken(`${BASE_URL}/notes/${id}`, {
@@ -147,5 +177,7 @@ export {
   getNotes,
   getArchivedNotes,
   getNote,
+  archiveNote,
+  unarchiveNote,
   deleteNote 
 }

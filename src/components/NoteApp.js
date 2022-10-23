@@ -5,12 +5,11 @@ import PropTypes from 'prop-types';
 import HomePage from '../pages/HomePage';
 import DetailPage from '../pages/DetailPage';
 import NavigationList from './NavigationList';
-import { getInitialData } from '../utils';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import ArchivePage from '../pages/ArchivePage';
 import NotFoundPage from '../pages/NoteFoundPage';
-import { getUserLogged, putAccessToken } from '../utils/api';
+import { addNote, archiveNote, getArchivedNotes, getUserLogged, putAccessToken, unarchiveNote } from '../utils/api';
 import { getNotes, deleteNote } from '../utils/api';
  
 function NoteAppWrapper() {
@@ -38,14 +37,15 @@ class NoteApp extends React.Component {
     this.state = {
       authedUser: null,
       initializing: true,
-      notes: getInitialData(),
-      currentNotes: getInitialData(),
+      notes: [],
+      currentNotes: [],
       keyword: props.defaultKeyword || '',
     }
 
     this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
     this.onDeleteNoteHandler = this.onDeleteNoteHandler.bind(this);
     this.onArchiveNoteHandler = this.onArchiveNoteHandler.bind(this);
+    this.onUnarchiveNoteHandler = this.onUnarchiveNoteHandler.bind(this);
     this.onSearchNoteHandler = this.onSearchNoteHandler.bind(this);
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
     this.onLogout = this.onLogout.bind(this);
@@ -56,16 +56,21 @@ class NoteApp extends React.Component {
     this.setState(() => {
       return {
         authedUser: user.data,
-        initializing: false,
+        initializing: false
       };
     });
 
     if (this.state.authedUser) {
-      const notes = await getNotes();
+      const notes = [];
+      const unarchiveNotes = await getNotes();
+      const archiveNotes = await getArchivedNotes();
+      
+      unarchiveNotes.map(note => notes.push(note));
+      archiveNotes.map(note => notes.push(note));
       this.setState(() => {
         return {
-          notes: notes.data,
-          currentNotes: notes.data,
+          notes: notes,
+          currentNotes: notes
         };
       });
     }
@@ -73,40 +78,30 @@ class NoteApp extends React.Component {
 
   async componentDidUpdate() {
     if (this.state.authedUser) {
-      const notes = await getNotes();
+      const notes = [];
+      const unarchiveNotes = await getNotes();
+      const archiveNotes = await getArchivedNotes();
+
+      unarchiveNotes.data.map(note => notes.push(note));
+      archiveNotes.data.map(note => notes.push(note));
       this.setState(() => {
         return {
-          notes: notes.data,
-          currentNotes: notes.data,
+          notes: notes,
+          currentNotes: notes,
         };
       });
     }
   }
 
-  onAddNoteHandler({ title, body }) {
-    this.setState((prevState) => {
+  async onAddNoteHandler({ title, body }) {
+    await addNote({ title, body });
+
+    const notes = await getNotes();
+    this.setState(() => {
       return {
-        notes: [
-          ...prevState.notes,
-          {
-            id: +new Date(),
-            title,
-            body,
-            archived: false,
-            createdAt: new Date().toISOString()
-          }
-        ],
-        currentNotes: [
-          ...prevState.currentNotes,
-          {
-            id: +new Date(),
-            title,
-            body,
-            archived: false,
-            createdAt: new Date().toISOString()
-          }
-        ],
-      }
+        notes: notes.data,
+        currentNotes: notes.data,
+      };
     });
   }
 
@@ -122,16 +117,32 @@ class NoteApp extends React.Component {
     });
   }
 
-  onArchiveNoteHandler(id) {
-    const notes = this.state.notes;
-    const note = notes.find(note => note.id === id);
-    note.archived = !note.archived;
-    this.setState({ 
-      notes,
-      currentNotes: notes
-     });
+  async onArchiveNoteHandler(id) {
+    await archiveNote(id);
+    
+    const notes = await getNotes();
+    this.setState(() => {
+      return {
+        notes: notes.data,
+        currentNotes: notes.data,
+      };
+    });
 
-     if (this.props.currentPath === 'note') console.log(this.props.navigate('/'));
+     if (this.props.currentPath === 'note') this.props.navigate('/archive');
+  }
+
+  async onUnarchiveNoteHandler(id) {
+    await unarchiveNote(id);
+    
+    const notes = await getNotes();
+    this.setState(() => {
+      return {
+        notes: notes.data,
+        currentNotes: notes.data,
+      };
+    });
+
+     if (this.props.currentPath === 'note') this.props.navigate('/');
   }
 
   onSearchNoteHandler(keyword) {
@@ -199,9 +210,9 @@ class NoteApp extends React.Component {
         </header>
         <main>
           <Routes>
-            <Route path="/" element={<HomePage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} keyword={this.state.keyword} searchNoteHandler={this.onSearchNoteHandler} />} />
-            <Route path="/note/:id" element={<DetailPage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} />} />
-            <Route path="/archive" element={<ArchivePage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} keyword={this.state.keyword} searchNoteHandler={this.onSearchNoteHandler} />} />
+            <Route path="/" element={<HomePage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} unarchiveNoteHandler={this.onUnarchiveNoteHandler} keyword={this.state.keyword} searchNoteHandler={this.onSearchNoteHandler} />} />
+            <Route path="/note/:id" element={<DetailPage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} unarchiveNoteHandler={this.onUnarchiveNoteHandler} />} />
+            <Route path="/archive" element={<ArchivePage notes={notes} addNoteHandler={this.onAddNoteHandler} deleteNoteHandler={this.onDeleteNoteHandler} archiveNoteHandler={this.onArchiveNoteHandler} unarchiveNoteHandler={this.onUnarchiveNoteHandler} keyword={this.state.keyword} searchNoteHandler={this.onSearchNoteHandler} />} />
             <Route path="/404" element={<NotFoundPage addNoteHandler={this.onAddNoteHandler} />} />
             <Route path="*" element={<NotFoundPage addNoteHandler={this.onAddNoteHandler} />} />
           </Routes>

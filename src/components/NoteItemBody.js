@@ -5,7 +5,7 @@ import parse from 'html-react-parser';
 function NoteItemBody({ body }) {
   return (
     <section className="note-item__body">
-      <p className="note-item__body-content">{parse(parse(body))}</p>
+      <p className="note-item__body-content">{parse(parse(body ? body : 'no text'))}</p>
     </section>
   );
 }
